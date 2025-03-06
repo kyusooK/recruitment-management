@@ -39,7 +39,7 @@ mvn spring-boot:run
 ```
 - interview
 ```
- http :8088/interviews id="id"interviewDate="interviewDate"location="location"interviewScore="interviewScore"passed="passed"
+ http :8088/interviews id="id"interviewDate="interviewDate"location="location"interviewScore="interviewScore"passed="passed"ResumeId := '{"id": 0}'
 ```
 - user
 ```

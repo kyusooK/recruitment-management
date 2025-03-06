@@ -20,7 +20,7 @@
             <String label="면접장소" v-model="value.location" :editMode="editMode" :inputUI="''"/>
             <Number label="면접점수" v-model="value.interviewScore" :editMode="editMode" :inputUI="''"/>
             <Boolean label="합격여부" v-model="value.passed" :editMode="editMode" :inputUI="''"/>
-            <ResumeId offline label="이력서 ID" v-model="value.resumeId" :editMode="editMode" @change="change"/>
+            <ResumeId offline label="resumeId" v-model="value.resumeId" :editMode="editMode" @change="change"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">
