@@ -1,14 +1,20 @@
 package recruitmentmanagement.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import javax.persistence.*;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Data;
 import recruitmentmanagement.InterviewApplication;
-import recruitmentmanagement.domain.ScheduleSet;
 
 @Entity
 @Table(name = "Interview_table")
@@ -71,20 +77,28 @@ public class Interview {
     public void saveInterviewresult(
         SaveInterviewresultCommand saveInterviewresultCommand
     ) {
-        //implement business logic here:
-
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
         recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
-        // mappings goes here
+
+        reservation.setTaskId(this.getId().toString());
+        reservation.setTitle("면접 결과 안내");
+        reservation.setNow(true);
+        if(saveInterviewresultCommand.getPassed().equals(true)){
+            reservation.setDescription("면접 통과를 축하드립니다!" + " 면접 점수: " + saveInterviewresultCommand.getInterviewScore());
+            
+
+        }else{
+            reservation.setDescription("저희 회사에 지원해주셔서 감사합니다. 안타깝게도 귀하의 면접 결과, 불합격되었음을 알려드립니다 ");
+        }
+
         InterviewApplication.applicationContext
             .getBean(recruitmentmanagement.external.ReservationService.class)
             .createReservation(reservation);
 
-        InterviewResultSaved interviewResultSaved = new InterviewResultSaved(
-            this
-        );
+        this.setInterviewScore(saveInterviewresultCommand.getInterviewScore());
+        this.setPassed(saveInterviewresultCommand.getPassed());
+
+        InterviewResultSaved interviewResultSaved = new InterviewResultSaved(this);
         interviewResultSaved.publishAfterCommit();
     }
     //>>> Clean Arch / Port Method
