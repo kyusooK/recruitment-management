@@ -9,6 +9,16 @@ spring:
     gateway:
 #<<< API Gateway / Routes
       routes:
+        - id: reservation
+          uri: http://localhost:8072
+          predicates:
+            - Path=/reservations/**, 
+        - id: notification
+          uri: http://localhost:8073
+          predicates:
+            - Path=/notifications/**
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
         - id: resume
           uri: http://localhost:8082
           predicates:
@@ -30,6 +40,8 @@ spring:
           predicates:
             - Path=/**
 #>>> API Gateway / Routes
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -39,7 +51,13 @@ spring:
               - "*"
             allowedHeaders:
               - "*"
+            exposedHeaders:
+              - "X-Total-Count"
+              - "Link"
+              - "Access-Control-Allow-Origin"
+              - "Access-Control-Allow-Credentials"
             allowCredentials: true
+            maxAge: 3600
 
 
 ---

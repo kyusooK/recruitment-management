@@ -33,11 +33,9 @@ public class Interview {
 
     @PostPersist
     public void onPostPersist() {
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
         recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
-        // mappings goes here
+        
         InterviewApplication.applicationContext
             .getBean(recruitmentmanagement.external.ReservationService.class)
             .createReservation(reservation);

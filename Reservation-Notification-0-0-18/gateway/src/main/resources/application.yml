@@ -10,11 +10,11 @@ spring:
 #<<< API Gateway / Routes
       routes:
         - id: reservation
-          uri: http://localhost:8082
+          uri: http://localhost:8072
           predicates:
             - Path=/reservations/**, 
         - id: notification
-          uri: http://localhost:8083
+          uri: http://localhost:8073
           predicates:
             - Path=/notifications/**
           filters:

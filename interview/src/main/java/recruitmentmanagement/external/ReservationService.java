@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(name = "reservation", url = "${api.url.reservation}")
 public interface ReservationService {
     @RequestMapping(method = RequestMethod.POST, path = "/reservations")
-    public void createReservation(@RequestBody Reservation reservation);
+    public Reservation createReservation(@RequestBody Reservation reservation);
 
-    @RequestMapping(method = RequestMethod.POST, path = "/reservations")
-    public void createReservation(@RequestBody Reservation reservation);
+    
 }

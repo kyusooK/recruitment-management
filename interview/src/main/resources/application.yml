@@ -47,7 +47,8 @@ logging:
 
 api:
   url: 
-    reservation: localhost:0 
+    interview: locahost:8083
+    reservation: localhost:8072
     
 
 server:
