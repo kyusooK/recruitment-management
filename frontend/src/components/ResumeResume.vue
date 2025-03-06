@@ -67,9 +67,9 @@
                 v-if="!editMode"
                 color="primary"
                 text
-                @click="summerizeResume"
+                @click="summerizeAibasedresume"
             >
-                SummerizeResume
+                SummerizeAibasedresume
             </v-btn>
         </v-card-actions>
 
@@ -205,10 +205,10 @@
             change(){
                 this.$emit('input', this.value);
             },
-            async summerizeResume() {
+            async summerizeAibasedresume() {
                 try {
                     if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['summerizeresume'].href))
+                        var temp = await axios.put(axios.fixUrl(this.value._links['summerizeaibasedresume'].href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }

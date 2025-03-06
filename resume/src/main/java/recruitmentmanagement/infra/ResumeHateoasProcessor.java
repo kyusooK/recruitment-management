@@ -15,9 +15,10 @@ public class ResumeHateoasProcessor
         model.add(
             Link
                 .of(
-                    model.getRequiredLink("self").getHref() + "/summerizeresume"
+                    model.getRequiredLink("self").getHref() +
+                    "/summerizeaibasedresume"
                 )
-                .withRel("summerizeresume")
+                .withRel("summerizeaibasedresume")
         );
 
         return model;

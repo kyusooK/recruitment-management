@@ -25,16 +25,14 @@ public class PolicyHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='ResumeSummerized'"
+        condition = "headers['type']=='ResumePassed'"
     )
-    public void wheneverResumeSummerized_SetInterviewSchedule(
-        @Payload ResumeSummerized resumeSummerized
+    public void wheneverResumePassed_SetInterviewSchedule(
+        @Payload ResumePassed resumePassed
     ) {
-        ResumeSummerized event = resumeSummerized;
+        ResumePassed event = resumePassed;
         System.out.println(
-            "\n\n##### listener SetInterviewSchedule : " +
-            resumeSummerized +
-            "\n\n"
+            "\n\n##### listener SetInterviewSchedule : " + resumePassed + "\n\n"
         );
 
         // Sample Logic //

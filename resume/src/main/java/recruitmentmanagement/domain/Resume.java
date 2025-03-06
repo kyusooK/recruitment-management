@@ -10,16 +10,36 @@ import lombok.Data;
 import recruitmentmanagement.ResumeApplication;
 import recruitmentmanagement.domain.AzureAIService.AISummaryResponse;
 import recruitmentmanagement.domain.ResumeReceived;
+import recruitmentmanagement.domain.ResumePassed;
+import recruitmentmanagement.ResumeApplication;
+import javax.persistence.*;
+import java.util.List;
+import lombok.Data;
+import java.util.Date;
+import java.time.LocalDate;
+import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Entity
-@Table(name = "Resume_table")
+@Table(name="Resume_table")
 @Data
-public class Resume {
 
+//<<< DDD / Aggregate Root
+public class Resume  {
+
+
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    
+    
+    
+    
     private Long id;
-
+    
+    
+    
     @Embedded
     private UserId userId;
 
@@ -37,23 +57,36 @@ public class Resume {
 
     @Lob
     private String summation;
-
+    
+    
+    
+    
     private Integer summationScore;
 
     @PostPersist
-    public void onPostPersist() {
+    public void onPostPersist(){
+
+
         ResumeReceived resumeReceived = new ResumeReceived(this);
         resumeReceived.publishAfterCommit();
+
+
+
+        ResumePassed resumePassed = new ResumePassed(this);
+        resumePassed.publishAfterCommit();
+
+    
     }
 
-    public static ResumeRepository repository() {
-        ResumeRepository resumeRepository = ResumeApplication.applicationContext.getBean(
-            ResumeRepository.class
-        );
+    public static ResumeRepository repository(){
+        ResumeRepository resumeRepository = ResumeApplication.applicationContext.getBean(ResumeRepository.class);
         return resumeRepository;
     }
 
-    public void summerizeResume() {
+
+//<<< Clean Arch / Port Method
+    public void summerizeAibasedresume(){
+        
         repository().findById(this.getId()).ifPresent(resume ->{
             AzureAIService azureAIService = ResumeApplication.applicationContext.getBean(AzureAIService.class);
             
@@ -69,5 +102,10 @@ public class Resume {
 
         ResumeSummerized resumeSummerized = new ResumeSummerized(this);
         resumeSummerized.publishAfterCommit();
+        
+
+
+        ResumeNotPassed resumeNotPassed = new ResumeNotPassed(this);
+        resumeNotPassed.publishAfterCommit();
     }
 }

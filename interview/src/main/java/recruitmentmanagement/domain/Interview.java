@@ -101,7 +101,10 @@ public class Interview {
         interviewResultSaved.publishAfterCommit();
     }
 
-    public static void setInterviewSchedule(ResumeSummerized resumeSummerized) {
+    //>>> Clean Arch / Port Method
+
+    //<<< Clean Arch / Port Method
+    public static void setInterviewSchedule(ResumePassed resumePassed) {
         //implement business logic here:
 
         /** Example 1:  new item 
@@ -114,12 +117,12 @@ public class Interview {
 
         /** Example 2:  finding and process
         
-        // if resumeSummerized.userId exists, use it
+        // if resumePassed.userId exists, use it
         
         // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> resumeMap = mapper.convertValue(resumeSummerized.getUserId(), Map.class);
+        // Map<Long, Object> resumeMap = mapper.convertValue(resumePassed.getUserId(), Map.class);
 
-        repository().findById(resumeSummerized.get???()).ifPresent(interview->{
+        repository().findById(resumePassed.get???()).ifPresent(interview->{
             
             interview // do something
             repository().save(interview);
