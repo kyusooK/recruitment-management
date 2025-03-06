@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
@@ -40,16 +43,12 @@ public class Interview {
     @PostPersist
     public void onPostPersist() {
 
-        ObjectMapper mapper = new ObjectMapper();
-        Map<Long, Object> resumeMap = mapper.convertValue(this.getResumeId(), Map.class);
-
         recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
         
         reservation.setTaskId(this.getId().toString());
                 reservation.setTitle("면접 안내");
                 reservation.setDescription(
-                    "지원자 성명: " 
-                    + resumeMap.get("name").toString()
+                    "저희 회사 채용공고에 지원해주셔서 진심으로 감사드립니다. 서류 심사에 통과되어 면접 일정에 관해 공유 드립니다. " 
                     + " 면접 일시: "
                     + this.getInterviewDate() 
                     + "면접 장소:  "
@@ -100,6 +99,37 @@ public class Interview {
 
         InterviewResultSaved interviewResultSaved = new InterviewResultSaved(this);
         interviewResultSaved.publishAfterCommit();
+    }
+
+    public static void setInterviewSchedule(ResumeSummerized resumeSummerized) {
+        //implement business logic here:
+
+        /** Example 1:  new item 
+        Interview interview = new Interview();
+        repository().save(interview);
+
+        ScheduleSet scheduleSet = new ScheduleSet(interview);
+        scheduleSet.publishAfterCommit();
+        */
+
+        /** Example 2:  finding and process
+        
+        // if resumeSummerized.userId exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<Long, Object> resumeMap = mapper.convertValue(resumeSummerized.getUserId(), Map.class);
+
+        repository().findById(resumeSummerized.get???()).ifPresent(interview->{
+            
+            interview // do something
+            repository().save(interview);
+
+            ScheduleSet scheduleSet = new ScheduleSet(interview);
+            scheduleSet.publishAfterCommit();
+
+         });
+        */
+
     }
     //>>> Clean Arch / Port Method
 

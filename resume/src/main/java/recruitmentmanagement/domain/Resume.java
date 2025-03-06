@@ -14,7 +14,6 @@ import recruitmentmanagement.domain.ResumeReceived;
 @Entity
 @Table(name = "Resume_table")
 @Data
-//<<< DDD / Aggregate Root
 public class Resume {
 
     @Id
@@ -24,14 +23,19 @@ public class Resume {
     @Embedded
     private UserId userId;
 
+
     private String position;
 
+    @Lob
     private String career;
 
+    @Lob
     private String qualifications;
 
+    @Lob
     private String motivation;
 
+    @Lob
     private String summation;
 
     private Integer summationScore;
@@ -49,7 +53,6 @@ public class Resume {
         return resumeRepository;
     }
 
-    //<<< Clean Arch / Port Method
     public void summerizeResume() {
         repository().findById(this.getId()).ifPresent(resume ->{
             AzureAIService azureAIService = ResumeApplication.applicationContext.getBean(AzureAIService.class);
@@ -67,7 +70,4 @@ public class Resume {
         ResumeSummerized resumeSummerized = new ResumeSummerized(this);
         resumeSummerized.publishAfterCommit();
     }
-    //>>> Clean Arch / Port Method
-
 }
-//>>> DDD / Aggregate Root

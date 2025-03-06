@@ -22,5 +22,23 @@ public class PolicyHandler {
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {}
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='ResumeSummerized'"
+    )
+    public void wheneverResumeSummerized_SetInterviewSchedule(
+        @Payload ResumeSummerized resumeSummerized
+    ) {
+        ResumeSummerized event = resumeSummerized;
+        System.out.println(
+            "\n\n##### listener SetInterviewSchedule : " +
+            resumeSummerized +
+            "\n\n"
+        );
+
+        // Sample Logic //
+        Interview.setInterviewSchedule(event);
+    }
 }
 //>>> Clean Arch / Inbound Adaptor

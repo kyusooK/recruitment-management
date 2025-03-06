@@ -1,5 +1,9 @@
 package recruitmentmanagement.domain;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -35,50 +39,58 @@ public class AzureAIService {
     
     @Value("${azure.openai.key}")
     private String azureKey;
+
+    @Value("${azure.openai.deployment}")
+    private String deploymentName;
+
+    private final RestTemplate restTemplate;
+    
+    public AzureAIService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
     
     public AISummaryResponse analyzeResume(String career, String qualifications, String motivation) {
-    RestTemplate restTemplate = new RestTemplate();
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("api-key", azureKey);
-
-    // Using traditional string concatenation instead of text blocks
-    String prompt = "다음 이력서 정보를 분석하여 제공해주세요:\n" +
-        "1. 간단한 요약\n" +
-        "2. 전반적인 품질을 0-100점 사이로 평가\n\n" +
-        "경력사항: " + career + "\n" +
-        "자격요건: " + qualifications + "\n" +
-        "지원동기: " + motivation + "\n\n" +
-        "다음 JSON 형식으로 응답해주세요:\n" +
-        "{\n" +
-        "    \"summary\": \"여기에 요약을 작성\",\n" +
-        "    \"score\": 점수\n" +
-        "}";
-
-    HttpEntity<String> request = new HttpEntity<>(
-        "{\"messages\": [{\"role\": \"user\", \"content\": \"" + prompt + "\"}]}", 
-        headers
-    );
-
-    try {
-        ResponseEntity<String> response = restTemplate.postForEntity(
-            azureEndpoint + "/openai/deployments/your-deployment-name/chat/completions?api-version=2023-05-15",
-            request,
-            String.class
-        );
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(response.getBody());
-        String aiContent = root.path("choices").get(0).path("message").path("content").asText();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("api-key", azureKey);
         
-        JsonNode aiResponse = mapper.readTree(aiContent);
-        return new AISummaryResponse(
-            aiResponse.get("summary").asText(),
-            aiResponse.get("score").asInt()
+        String prompt = String.format(
+            "다음 이력서를 분석하고, 점수(0-100)를 매겨주세요. 응답 형식은 반드시 다음과 같이 해주세요: '점수: [점수]\\n\\n[분석내용]'\n\n경력사항:\n%s\n\n자격요건:\n%s\n\n지원동기:\n%s",
+            career.replace("\n", "\\n"),
+            qualifications.replace("\n", "\\n"),
+            motivation.replace("\n", "\\n")
         );
-    } catch (Exception e) {
-        // Add proper error handling
-        throw new RuntimeException("Failed to analyze resume: " + e.getMessage(), e);
+    
+        Map<String, Object> message = new HashMap<>();
+        message.put("role", "user");
+        message.put("content", prompt);
+    
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("messages", Collections.singletonList(message));
+        requestBody.put("temperature", 0.7);
+        requestBody.put("max_tokens", 800);
+    
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+    
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(
+                azureEndpoint + "/openai/deployments/" + deploymentName + "/chat/completions?api-version=2023-05-15",
+                request,
+                String.class
+            );
+            
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.getBody());
+            String content = root.path("choices").get(0).path("message").path("content").asText();
+            
+            // 응답에서 점수와 내용 분리
+            String[] parts = content.split("\\n\\n", 2);
+            int score = Integer.parseInt(parts[0].split(": ")[1]);
+            String summary = parts[1];
+            
+            return new AISummaryResponse(summary, score);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to analyze resume: " + e.getMessage(), e);
+        }
     }
-}
 }
