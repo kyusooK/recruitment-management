@@ -41,29 +41,7 @@ public class Interview {
     private ResumeId resumeId;
 
     @PostPersist
-    public void onPostPersist() {
-
-        recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
-        
-        reservation.setTaskId(this.getId().toString());
-                reservation.setTitle("면접 안내");
-                reservation.setDescription(
-                    "저희 회사 채용공고에 지원해주셔서 진심으로 감사드립니다. 서류 심사에 통과되어 면접 일정에 관해 공유 드립니다. " 
-                    + " 면접 일시: "
-                    + this.getInterviewDate() 
-                    + "면접 장소:  "
-                    + this.getLocation());
-                
-                reservation.setNow(true);
-
-
-        InterviewApplication.applicationContext
-            .getBean(recruitmentmanagement.external.ReservationService.class)
-            .createReservation(reservation);
-
-        ScheduleSet scheduleSet = new ScheduleSet(this);
-        scheduleSet.publishAfterCommit();
-    }
+    public void onPostPersist() {}
 
     public static InterviewRepository repository() {
         InterviewRepository interviewRepository = InterviewApplication.applicationContext.getBean(
@@ -105,30 +83,39 @@ public class Interview {
 
     //<<< Clean Arch / Port Method
     public static void setInterviewSchedule(ResumePassed resumePassed) {
+        
         Date date = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 3);
+        Date interviewCalendar = calendar.getTime();
+
+        Interview interview = new Interview();
+        interview.setLocation("8F 워크라운지");
+        interview.setInterviewDate(interviewCalendar);
+        
         recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
         
         reservation.setTaskId(resumePassed.getId().toString());
                 reservation.setTitle("면접 안내");
                 reservation.setDescription(
                     "저희 회사 채용공고에 지원해주셔서 진심으로 감사드립니다. 서류 심사에 통과되어 면접 일정에 관해 공유 드립니다. " 
-                    + " 면접 일시: 서류 심사 통과 기준 토요일 10시" 
-                    + "면접 장소: 8F 워크라운지");
+                    + " 면접 일시: "
+                    + interview.getInterviewDate() 
+                    + " 면접 장소: "
+                    + interview.getLocation()
+                    );
                 
                 reservation.setNow(true);
-
 
         InterviewApplication.applicationContext
             .getBean(recruitmentmanagement.external.ReservationService.class)
             .createReservation(reservation);
         
 
-
-        ScheduleSet scheduleSet = new ScheduleSet(this);
+        ScheduleSet scheduleSet = new ScheduleSet(interview);
         scheduleSet.publishAfterCommit();
 
     }
-    //>>> Clean Arch / Port Method
-
 }
-//>>> DDD / Aggregate Root

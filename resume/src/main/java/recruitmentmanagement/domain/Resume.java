@@ -65,16 +65,8 @@ public class Resume  {
 
     @PostPersist
     public void onPostPersist(){
-
-
         ResumeReceived resumeReceived = new ResumeReceived(this);
         resumeReceived.publishAfterCommit();
-
-
-
-        ResumePassed resumePassed = new ResumePassed(this);
-        resumePassed.publishAfterCommit();
-
     
     }
 
