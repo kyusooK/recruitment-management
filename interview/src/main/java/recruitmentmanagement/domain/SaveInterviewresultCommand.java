@@ -5,4 +5,9 @@ import java.util.*;
 import lombok.Data;
 
 @Data
-public class SaveInterviewresultCommand {}
+public class SaveInterviewresultCommand {
+
+    private Long id;
+    private Integer interviewScore;
+    private Boolean passed;
+}
