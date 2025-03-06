@@ -54,7 +54,9 @@ public class Interview {
     }
 
     //<<< Clean Arch / Port Method
-    public void saveInterviewresult() {
+    public void saveInterviewresult(
+        SaveInterviewresultCommand saveInterviewresultCommand
+    ) {
         //implement business logic here:
 
         //Following code causes dependency to external APIs

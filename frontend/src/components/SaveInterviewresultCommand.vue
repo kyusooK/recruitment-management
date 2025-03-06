@@ -5,6 +5,9 @@
         </v-card-title>
 
         <v-card-text>
+            <Number label="Id" v-model="value.id" :editMode="editMode"/>
+            <Number label="InterviewScore" v-model="value.interviewScore" :editMode="editMode"/>
+            <Boolean label="Passed" v-model="value.passed" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -40,6 +43,9 @@
             value: {},
         }),
         created() {
+            this.value.id = 0;
+            this.value.interviewScore = 0;
+            this.value.passed = false;
         },
         watch: {
         },

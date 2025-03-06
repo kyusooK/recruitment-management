@@ -27,6 +27,7 @@ public class InterviewController {
     )
     public Interview saveInterviewresult(
         @PathVariable(value = "id") Long id,
+        @RequestBody SaveInterviewresultCommand saveInterviewresultCommand,
         HttpServletRequest request,
         HttpServletResponse response
     ) throws Exception {
@@ -39,7 +40,7 @@ public class InterviewController {
 
         optionalInterview.orElseThrow(() -> new Exception("No Entity Found"));
         Interview interview = optionalInterview.get();
-        interview.saveInterviewresult();
+        interview.saveInterviewresult(saveInterviewresultCommand);
 
         interviewRepository.save(interview);
         return interview;
