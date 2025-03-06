@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 import recruitmentmanagement.ResumeApplication;
+import recruitmentmanagement.domain.AzureAIService.AISummaryResponse;
 import recruitmentmanagement.domain.ResumeReceived;
 
 @Entity
@@ -50,7 +51,18 @@ public class Resume {
 
     //<<< Clean Arch / Port Method
     public void summerizeResume() {
-        //implement business logic here:
+        repository().findById(this.getId()).ifPresent(resume ->{
+            AzureAIService azureAIService = ResumeApplication.applicationContext.getBean(AzureAIService.class);
+            
+            AISummaryResponse aiResponse = azureAIService.analyzeResume(
+                this.career,
+                this.qualifications,
+                this.motivation
+            );
+            
+            this.summation = aiResponse.getSummary();
+            this.summationScore = aiResponse.getScore();
+        });
 
         ResumeSummerized resumeSummerized = new ResumeSummerized(this);
         resumeSummerized.publishAfterCommit();
