@@ -34,8 +34,24 @@ public class Interview {
     @PostPersist
     public void onPostPersist() {
 
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> resumeMap = mapper.convertValue(this.getResumeId(), Map.class);
+
         recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
         
+        reservation.setTaskId(this.getId().toString());
+                reservation.setTitle("면접 안내");
+                reservation.setDescription(
+                    "지원자 성명: " 
+                    + resumeMap.get("name").toString()
+                    + " 면접 일시: "
+                    + this.getInterviewDate() 
+                    + "면접 장소:  "
+                    + this.getLocation());
+                
+                reservation.setNow(true);
+
+
         InterviewApplication.applicationContext
             .getBean(recruitmentmanagement.external.ReservationService.class)
             .createReservation(reservation);
