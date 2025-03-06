@@ -1,5 +1,6 @@
 package recruitmentmanagement.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -62,7 +63,6 @@ public class Interview {
         reservation.setNow(true);
         if(saveInterviewresultCommand.getPassed().equals(true)){
             reservation.setDescription("면접 통과를 축하드립니다!" + " 면접 점수: " + saveInterviewresultCommand.getInterviewScore());
-            
 
         }else{
             reservation.setDescription("저희 회사에 지원해주셔서 감사합니다. 안타깝게도 귀하의 면접 결과, 불합격되었음을 알려드립니다 ");
@@ -94,6 +94,7 @@ public class Interview {
         Interview interview = new Interview();
         interview.setLocation("8F 워크라운지");
         interview.setInterviewDate(interviewCalendar);
+        repository().save(interview);
         
         recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
         
