@@ -47,7 +47,7 @@
                     text
                     @click="save"
                 >
-                    면접일정설정
+                저장
                 </v-btn>
                 <v-btn
                     color="primary"

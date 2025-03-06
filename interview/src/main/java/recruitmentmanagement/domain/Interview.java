@@ -31,21 +31,6 @@ public class Interview {
     @Embedded
     private ResumeId resumeId;
 
-    @PostPersist
-    public void onPostPersist() {
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
-        // mappings goes here
-        InterviewApplication.applicationContext
-            .getBean(recruitmentmanagement.external.ReservationService.class)
-            .createReservation(reservation);
-
-        ScheduleSet scheduleSet = new ScheduleSet(this);
-        scheduleSet.publishAfterCommit();
-    }
-
     public static InterviewRepository repository() {
         InterviewRepository interviewRepository = InterviewApplication.applicationContext.getBean(
             InterviewRepository.class
@@ -72,6 +57,40 @@ public class Interview {
             this
         );
         interviewResultSaved.publishAfterCommit();
+    }
+
+    //>>> Clean Arch / Port Method
+
+    //<<< Clean Arch / Port Method
+    public static void setInterviewSchedule(ResumePassed resumePassed) {
+        //implement business logic here:
+
+        /** Example 1:  new item 
+        Interview interview = new Interview();
+        repository().save(interview);
+
+        ScheduleSet scheduleSet = new ScheduleSet(interview);
+        scheduleSet.publishAfterCommit();
+        */
+
+        /** Example 2:  finding and process
+        
+        // if resumePassed.userId exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<Long, Object> resumeMap = mapper.convertValue(resumePassed.getUserId(), Map.class);
+
+        repository().findById(resumePassed.get???()).ifPresent(interview->{
+            
+            interview // do something
+            repository().save(interview);
+
+            ScheduleSet scheduleSet = new ScheduleSet(interview);
+            scheduleSet.publishAfterCommit();
+
+         });
+        */
+
     }
     //>>> Clean Arch / Port Method
 

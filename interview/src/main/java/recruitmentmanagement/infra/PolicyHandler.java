@@ -22,5 +22,21 @@ public class PolicyHandler {
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {}
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='ResumePassed'"
+    )
+    public void wheneverResumePassed_SetInterviewSchedule(
+        @Payload ResumePassed resumePassed
+    ) {
+        ResumePassed event = resumePassed;
+        System.out.println(
+            "\n\n##### listener SetInterviewSchedule : " + resumePassed + "\n\n"
+        );
+
+        // Sample Logic //
+        Interview.setInterviewSchedule(event);
+    }
 }
 //>>> Clean Arch / Inbound Adaptor

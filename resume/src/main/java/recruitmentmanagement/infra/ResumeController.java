@@ -21,21 +21,23 @@ public class ResumeController {
     ResumeRepository resumeRepository;
 
     @RequestMapping(
-        value = "/resumes/{id}/summerizeresume",
+        value = "/resumes/{id}/summerizeaibasedresume",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8"
     )
-    public Resume summerizeResume(
+    public Resume summerizeAibasedresume(
         @PathVariable(value = "id") Long id,
         HttpServletRequest request,
         HttpServletResponse response
     ) throws Exception {
-        System.out.println("##### /resume/summerizeResume  called #####");
+        System.out.println(
+            "##### /resume/summerizeAibasedresume  called #####"
+        );
         Optional<Resume> optionalResume = resumeRepository.findById(id);
 
         optionalResume.orElseThrow(() -> new Exception("No Entity Found"));
         Resume resume = optionalResume.get();
-        resume.summerizeResume();
+        resume.summerizeAibasedresume();
 
         resumeRepository.save(resume);
         return resume;
