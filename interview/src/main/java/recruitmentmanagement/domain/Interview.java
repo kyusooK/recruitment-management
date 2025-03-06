@@ -105,33 +105,27 @@ public class Interview {
 
     //<<< Clean Arch / Port Method
     public static void setInterviewSchedule(ResumePassed resumePassed) {
-        //implement business logic here:
+        Date date = new Date();
+        recruitmentmanagement.external.Reservation reservation = new recruitmentmanagement.external.Reservation();
+        
+        reservation.setTaskId(resumePassed.getId().toString());
+                reservation.setTitle("면접 안내");
+                reservation.setDescription(
+                    "저희 회사 채용공고에 지원해주셔서 진심으로 감사드립니다. 서류 심사에 통과되어 면접 일정에 관해 공유 드립니다. " 
+                    + " 면접 일시: 서류 심사 통과 기준 토요일 10시" 
+                    + "면접 장소: 8F 워크라운지");
+                
+                reservation.setNow(true);
 
-        /** Example 1:  new item 
-        Interview interview = new Interview();
-        repository().save(interview);
 
-        ScheduleSet scheduleSet = new ScheduleSet(interview);
+        InterviewApplication.applicationContext
+            .getBean(recruitmentmanagement.external.ReservationService.class)
+            .createReservation(reservation);
+        
+
+
+        ScheduleSet scheduleSet = new ScheduleSet(this);
         scheduleSet.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        // if resumePassed.userId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> resumeMap = mapper.convertValue(resumePassed.getUserId(), Map.class);
-
-        repository().findById(resumePassed.get???()).ifPresent(interview->{
-            
-            interview // do something
-            repository().save(interview);
-
-            ScheduleSet scheduleSet = new ScheduleSet(interview);
-            scheduleSet.publishAfterCommit();
-
-         });
-        */
 
     }
     //>>> Clean Arch / Port Method

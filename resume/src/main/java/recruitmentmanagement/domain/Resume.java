@@ -100,12 +100,17 @@ public class Resume  {
             this.summationScore = aiResponse.getScore();
         });
 
-        ResumeSummerized resumeSummerized = new ResumeSummerized(this);
-        resumeSummerized.publishAfterCommit();
-        
+        if(this.summationScore > 80){
 
+            ResumePassed resumePassed = new ResumePassed(this);
+            resumePassed.publishAfterCommit();
 
-        ResumeNotPassed resumeNotPassed = new ResumeNotPassed(this);
-        resumeNotPassed.publishAfterCommit();
+        }else{
+
+            ResumeNotPassed resumeNotPassed = new ResumeNotPassed(this);
+            resumeNotPassed.publishAfterCommit();
+
+        }
+
     }
 }
