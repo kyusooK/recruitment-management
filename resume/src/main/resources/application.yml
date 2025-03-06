@@ -40,11 +40,7 @@ spring:
 #>>> EDA / Topic Name
           contentType: application/json
 
-azure:
-  openai:
-    endpoint: "https://user01-apikey.openai.azure.com"
-    key: "3oDq9uD9rJ9wFTs26nkNH5tT21aNOQyidZIE0kfp4dNjK17dogb2JQQJ99BCACNns7RXJ3w3AAAAACOGxA4F"
-    deployment: "gpt-4o-mini" 
+
 logging:
   level:
     org.hibernate.type: trace
