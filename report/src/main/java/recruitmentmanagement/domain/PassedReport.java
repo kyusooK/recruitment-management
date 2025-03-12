@@ -13,7 +13,7 @@ import lombok.Data;
 public class PassedReport {
 
     @Id
-    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     private String name;
