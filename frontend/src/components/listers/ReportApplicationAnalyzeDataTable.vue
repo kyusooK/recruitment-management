@@ -61,8 +61,10 @@
             headers: 
                 [
                     { text: "id", value: "id" },
-                    { text: "totalApplyCount", value: "totalApplyCount" },
-                    { text: "passedCount", value: "passedCount" },
+                    { text: "applicantName", value: "applicantName" },
+                    { text: "summationScore", value: "summationScore" },
+                    { text: "interviewScore", value: "interviewScore" },
+                    { text: "position", value: "position" },
                 ],
             applicationAnalyzeData : [],
             newValue: {},
@@ -80,8 +82,10 @@
             this.values = temp.data._embedded.applicationanalyzedatas;
 
             this.newValue = {
-                'totalApplyCount': 0,
-                'passedCount': 0,
+                'applicantName': '',
+                'summationScore': 0,
+                'interviewScore': '',
+                'position': '',
             }
         },
         methods: {

@@ -17,8 +17,8 @@ import UserUserDetail from "./components/listers/UserUserDetail"
 import ReportApplicationAnalyzeDataManager from "./components/listers/ReportApplicationAnalyzeDataCards"
 import ReportApplicationAnalyzeDataDetail from "./components/listers/ReportApplicationAnalyzeDataDetail"
 
-import ReportView from "./components/ReportView"
-import ReportViewDetail from "./components/ReportViewDetail"
+import PassedReportView from "./components/PassedReportView"
+import PassedReportViewDetail from "./components/PassedReportViewDetail"
 
 export default new Router({
     // mode: 'history',
@@ -69,14 +69,14 @@ export default new Router({
             },
 
             {
-                path: '/reports/reports',
-                name: 'ReportView',
-                component: ReportView
+                path: '/reports/passedReports',
+                name: 'PassedReportView',
+                component: PassedReportView
             },
             {
-                path: '/reports/reports/:id',
-                name: 'ReportViewDetail',
-                component: ReportViewDetail
+                path: '/reports/passedReports/:id',
+                name: 'PassedReportViewDetail',
+                component: PassedReportViewDetail
             },
 
 

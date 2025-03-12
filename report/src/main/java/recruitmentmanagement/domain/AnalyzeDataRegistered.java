@@ -12,8 +12,10 @@ import recruitmentmanagement.infra.AbstractEvent;
 public class AnalyzeDataRegistered extends AbstractEvent {
 
     private Long id;
-    private Integer totalApplyCount;
-    private Integer passedCount;
+    private String applicantName;
+    private Integer summationScore;
+    private String interviewScore;
+    private String position;
 
     public AnalyzeDataRegistered(ApplicationAnalyzeData aggregate) {
         super(aggregate);

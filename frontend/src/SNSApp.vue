@@ -74,13 +74,13 @@
                     </v-list-item>
                     <v-list-item
                         class="px-2"
-                        key="reports"
-                        to="/reports/reports"
+                        key="passedReports"
+                        to="/reports/passedReports"
                         @click="changeUrl()"
                         color="primary"
                         style="font-weight:700;"
                     >
-                        보고서
+                        합격자 보고서
                     </v-list-item>
                 </v-list>
             </v-navigation-drawer>
@@ -166,10 +166,10 @@ export default {
                 ImageUrl: '',
             },
             { 
-                title: '보고서', 
-                description: 'Report을 관리하는 화면입니다.', 
-                key: 'reports', 
-                route: '/reports/reports',
+                title: '합격자 보고서', 
+                description: 'PassedReport을 관리하는 화면입니다.', 
+                key: 'passedReports', 
+                route: '/reports/passedReports',
                 ImageUrl: '',
             },
             

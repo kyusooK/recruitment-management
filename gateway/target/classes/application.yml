@@ -24,7 +24,7 @@ spring:
         - id: report
           uri: http://localhost:8085
           predicates:
-            - Path=/applicationAnalyzeData/**, /reports/**
+            - Path=/applicationAnalyzeData/**, /passedReports/**
         - id: frontend
           uri: http://localhost:8080
           predicates:
