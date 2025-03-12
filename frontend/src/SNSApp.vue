@@ -93,7 +93,7 @@
             <v-container style="padding:0px;" v-else fluid>
                 <div style="width:100%; position: relative;">
                     <v-img style="width:100%; height:200px;"
-                        src=""
+                        src="/image/main.png"
                     ></v-img>
                     <div class="App-main-text-overlap"></div>
                     <div class="App-sub-text-overlap"></div>
@@ -142,37 +142,36 @@ export default {
                 description: 'Resume을 관리하는 화면입니다.', 
                 key: 'resumes', 
                 route: '/resumes/resumes',
-                ImageUrl: '',
+                ImageUrl: '/image/resume.svg',
             },
             { 
                 title: '면접', 
                 description: 'interview을 관리하는 화면입니다.', 
                 key: 'interviews', 
                 route: '/interviews/interviews',
-                ImageUrl: '',
+                ImageUrl: '/image/interview.svg',
             },
             { 
                 title: '사용자', 
                 description: 'User을 관리하는 화면입니다.', 
                 key: 'users', 
                 route: '/users/users',
-                ImageUrl: '',
+                ImageUrl: '/image/user.svg',
             },
             { 
                 title: '지원분석데이터', 
                 description: 'ApplicationAnalyzeData을 관리하는 화면입니다.', 
                 key: 'applicationAnalyzeData', 
                 route: '/reports/applicationAnalyzeData',
-                ImageUrl: '',
+                ImageUrl: '/image/audience.svg',
             },
             { 
                 title: '보고서', 
                 description: 'Report을 관리하는 화면입니다.', 
                 key: 'reports', 
                 route: '/reports/reports',
-                ImageUrl: '',
+                ImageUrl: '/image/reporting.svg',
             },
-            
         ],
     }),
     
