@@ -9,7 +9,6 @@ import javax.persistence.*;
 import lombok.Data;
 import recruitmentmanagement.ReportApplication;
 import recruitmentmanagement.domain.AnalyzeDataRegistered;
-import recruitmentmanagement.domain.AnalyzeDataUpdated;
 
 @Entity
 @Table(name = "ApplicationAnalyzeData_table")
@@ -21,9 +20,13 @@ public class ApplicationAnalyzeData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer totalApplyCount;
+    private String applicantName;
 
-    private Integer passedCount;
+    private Integer summationScore;
+
+    private String interviewScore;
+
+    private String position;
 
     public static ApplicationAnalyzeDataRepository repository() {
         ApplicationAnalyzeDataRepository applicationAnalyzeDataRepository = ReportApplication.applicationContext.getBean(
@@ -42,8 +45,6 @@ public class ApplicationAnalyzeData {
 
         AnalyzeDataRegistered analyzeDataRegistered = new AnalyzeDataRegistered(applicationAnalyzeData);
         analyzeDataRegistered.publishAfterCommit();
-        AnalyzeDataUpdated analyzeDataUpdated = new AnalyzeDataUpdated(applicationAnalyzeData);
-        analyzeDataUpdated.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
@@ -60,8 +61,6 @@ public class ApplicationAnalyzeData {
 
             AnalyzeDataRegistered analyzeDataRegistered = new AnalyzeDataRegistered(applicationAnalyzeData);
             analyzeDataRegistered.publishAfterCommit();
-            AnalyzeDataUpdated analyzeDataUpdated = new AnalyzeDataUpdated(applicationAnalyzeData);
-            analyzeDataUpdated.publishAfterCommit();
 
          });
         */

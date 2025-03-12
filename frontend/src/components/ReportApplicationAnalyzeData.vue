@@ -16,8 +16,10 @@
         </v-card-title >        
 
         <v-card-text style="background-color: white;">
-            <Number label="TotalApplyCount" v-model="value.totalApplyCount" :editMode="editMode" :inputUI="''"/>
-            <Number label="PassedCount" v-model="value.passedCount" :editMode="editMode" :inputUI="''"/>
+            <String label="지원자 성명" v-model="value.applicantName" :editMode="editMode" :inputUI="''"/>
+            <Number label="이력서점수" v-model="value.summationScore" :editMode="editMode" :inputUI="''"/>
+            <String label="면접점수" v-model="value.interviewScore" :editMode="editMode" :inputUI="''"/>
+            <String label="지원분야" v-model="value.position" :editMode="editMode" :inputUI="''"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">

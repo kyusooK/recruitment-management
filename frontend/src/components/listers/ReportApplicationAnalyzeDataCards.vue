@@ -101,8 +101,10 @@
             me.values = temp.data._embedded.applicationAnalyzeData;
             
             me.newValue = {
-                'totalApplyCount': 0,
-                'passedCount': 0,
+                'applicantName': '',
+                'summationScore': 0,
+                'interviewScore': '',
+                'position': '',
             }
         },
         methods:{

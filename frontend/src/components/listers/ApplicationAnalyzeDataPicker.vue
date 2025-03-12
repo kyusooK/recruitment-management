@@ -15,10 +15,16 @@
                             <v-list-item-title>
                             </v-list-item-title>
                             <v-list-item-subtitle>
-                                TotalApplyCount :  {{item.totalApplyCount }}
+                                ApplicantName :  {{item.applicantName }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
-                                PassedCount :  {{item.passedCount }}
+                                SummationScore :  {{item.summationScore }}
+                            </v-list-item-subtitle>
+                            <v-list-item-subtitle>
+                                InterviewScore :  {{item.interviewScore }}
+                            </v-list-item-subtitle>
+                            <v-list-item-subtitle>
+                                Position :  {{item.position }}
                             </v-list-item-subtitle>
                         </v-list-item-content>
 
@@ -71,6 +77,10 @@
                 if(val != undefined) {
                     var arr = this.list[val]._links.self.href.split('/');
                     obj['id'] = arr[4]; 
+                    
+                    
+                    
+                    
                     
                     
                     

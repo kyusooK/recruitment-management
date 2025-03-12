@@ -6,10 +6,16 @@
 
         <v-card-text>
             <div>
-                <Number label="TotalApplyCount" v-model="item.totalApplyCount" :editMode="editMode" @change="change" />
+                <String label="ApplicantName" v-model="item.applicantName" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <Number label="PassedCount" v-model="item.passedCount" :editMode="editMode" @change="change" />
+                <Number label="SummationScore" v-model="item.summationScore" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <String label="InterviewScore" v-model="item.interviewScore" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <String label="Position" v-model="item.position" :editMode="editMode" @change="change" />
             </div>
         </v-card-text>
 

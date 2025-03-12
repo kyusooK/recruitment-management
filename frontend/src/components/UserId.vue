@@ -23,9 +23,13 @@
 <script>
     const axios = require('axios').default;
 
+    import UserPicker from './listers/UserPicker'; 
+
     export default {
         name: 'UserId',
-        components:{},
+        components:{
+            UserPicker
+        },
         props: {
             value: [Object, String, Number, Boolean, Array],
             editMode: Boolean,

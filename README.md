@@ -39,7 +39,7 @@ mvn spring-boot:run
 ```
 - interview
 ```
- http :8088/interviews id="id"interviewDate="interviewDate"location="location"interviewScore="interviewScore"passed="passed"ResumeId := '{"id": 0}'
+ http :8088/interviews id="id"interviewDate="interviewDate"location="location"interviewScore="interviewScore"passed="passed"
 ```
 - user
 ```
@@ -47,7 +47,7 @@ mvn spring-boot:run
 ```
 - report
 ```
- http :8088/applicationAnalyzeData id="id"totalApplyCount="totalApplyCount"passedCount="passedCount"
+ http :8088/applicationAnalyzeData id="id"applicantName="applicantName"summationScore="summationScore"interviewScore="interviewScore"position="position"
 ```
 
 

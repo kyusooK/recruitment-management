@@ -43,12 +43,16 @@
                             
                             
                             
+                            
+                            
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
                             [ Id :  {{data.id }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ TotalApplyCount :  {{data.totalApplyCount }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ PassedCount :  {{data.passedCount }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ ApplicantName :  {{data.applicantName }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ SummationScore :  {{data.summationScore }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ InterviewScore :  {{data.interviewScore }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ Position :  {{data.position }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -108,8 +112,10 @@
             this.values = temp.data._embedded.applicationanalyzedatas;
             
             this.newValue = {
-                'totalApplyCount': 0,
-                'passedCount': 0,
+                'applicantName': '',
+                'summationScore': 0,
+                'interviewScore': '',
+                'position': '',
             }
         },
         methods: {
