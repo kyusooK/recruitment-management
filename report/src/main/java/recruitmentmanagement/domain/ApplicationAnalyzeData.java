@@ -24,7 +24,7 @@ public class ApplicationAnalyzeData {
 
     private Integer summationScore;
 
-    private String interviewScore;
+    private Integer interviewScore;
 
     private String position;
 
@@ -37,33 +37,28 @@ public class ApplicationAnalyzeData {
 
     //<<< Clean Arch / Port Method
     public static void collectData(InterviewResultSaved interviewResultSaved) {
-        //implement business logic here:
 
-        /** Example 1:  new item 
+        
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> interviewMap = mapper.convertValue(interviewResultSaved.getResumeId(), Map.class);
+
+        Long resumeId = Long.valueOf(interviewMap.get("id").toString());
+
+        // Fetching data from the Resume service
+        RestTemplate restTemplate = new RestTemplate();
+        String resumeServiceUrl = "http://localhost:8082/resumes/" + resumeId;
+        Resume resume = restTemplate.getForObject(resumeServiceUrl, Resume.class);
+
         ApplicationAnalyzeData applicationAnalyzeData = new ApplicationAnalyzeData();
+        applicationAnalyzeData.setPosition(resume.getPosition());
+        applicationAnalyzeData.setSummationScore(resume.getSummationScore());
+        applicationAnalyzeData.setInterviewScore(interviewResultSaved.getInterviewScore());
+
         repository().save(applicationAnalyzeData);
 
         AnalyzeDataRegistered analyzeDataRegistered = new AnalyzeDataRegistered(applicationAnalyzeData);
         analyzeDataRegistered.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
         
-        // if interviewResultSaved.resumeId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> interviewMap = mapper.convertValue(interviewResultSaved.getResumeId(), Map.class);
-
-        repository().findById(interviewResultSaved.get???()).ifPresent(applicationAnalyzeData->{
-            
-            applicationAnalyzeData // do something
-            repository().save(applicationAnalyzeData);
-
-            AnalyzeDataRegistered analyzeDataRegistered = new AnalyzeDataRegistered(applicationAnalyzeData);
-            analyzeDataRegistered.publishAfterCommit();
-
-         });
-        */
 
     }
     //>>> Clean Arch / Port Method
