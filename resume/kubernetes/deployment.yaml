@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: resume
-          image: "username/resume:latest"
+          image: "user11registry.azurecr.io/resume:0708"
           ports:
             - containerPort: 8080
           readinessProbe:

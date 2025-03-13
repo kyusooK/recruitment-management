@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: interview
-          image: "username/interview:latest"
+          image: "user11registry.azurecr.io/interview:0707"
           ports:
             - containerPort: 8080
           readinessProbe:
