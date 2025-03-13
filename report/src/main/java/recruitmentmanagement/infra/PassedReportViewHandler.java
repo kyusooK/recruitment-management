@@ -38,32 +38,6 @@ public class PassedReportViewHandler {
             e.printStackTrace();
         }
     }
-
-
-    @StreamListener(KafkaProcessor.INPUT)
-    public void when_then_UPDATE_(@Payload  ) {
-        try {
-            if (!.validate()) return;
-                // view 객체 조회
-            Optional<PassedReport> passedReportOptional = passedReportRepository.findById(.getId());
-
-            if( passedReportOptional.isPresent()) {
-                 PassedReport passedReport = passedReportOptional.get();
-            // view 객체에 이벤트의 eventDirectValue 를 set 함
-                passedReport.setTotalApplyCount(.getTotalApplyCount());    
-                passedReport.setPassedCount(.getPassedCount());    
-                passedReport.set();    
-                // view 레파지 토리에 save
-                 passedReportRepository.save(passedReport);
-                }
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
 //>>> DDD / CQRS
 }
 

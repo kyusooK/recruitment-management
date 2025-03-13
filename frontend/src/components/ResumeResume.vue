@@ -21,6 +21,8 @@
             <String label="경력" v-model="value.career" :editMode="editMode" :inputUI="''"/>
             <String label="자격증" v-model="value.qualifications" :editMode="editMode" :inputUI="''"/>
             <String label="지원동기" v-model="value.motivation" :editMode="editMode" :inputUI="''"/>
+            <String v-if="!editMode" label="분석결과" v-model="value.summation" :editMode="editMode" :inputUI="''"/>
+            <Number v-if="!editMode" label="분석결과" v-model="value.summationScore" :editMode="editMode" :inputUI="''"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">

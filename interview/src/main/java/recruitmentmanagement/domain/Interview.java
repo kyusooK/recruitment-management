@@ -93,6 +93,7 @@ public class Interview {
 
         Interview interview = new Interview();
         interview.setLocation("8F 워크라운지");
+        interview.setResumeId(new ResumeId(resumePassed.getId()));
         interview.setInterviewDate(interviewCalendar);
         repository().save(interview);
         
