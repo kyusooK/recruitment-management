@@ -19,5 +19,5 @@ public class PassedReport {
     private String name;
     private Integer summationScore;
     private Integer interviewScore;
-    private Integer position;
+    private String position;
 }

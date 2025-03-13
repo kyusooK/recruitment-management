@@ -2,7 +2,6 @@ package recruitmentmanagement.domain;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -11,11 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
 import recruitmentmanagement.InterviewApplication;
@@ -65,6 +59,8 @@ public class Interview {
             reservation.setDescription("면접 통과를 축하드립니다!" + " 면접 점수: " + saveInterviewresultCommand.getInterviewScore());
 
             InterviewResultSaved interviewResultSaved = new InterviewResultSaved(this);
+            this.setInterviewScore(saveInterviewresultCommand.getInterviewScore());
+            this.setPassed(saveInterviewresultCommand.getPassed());
             interviewResultSaved.publishAfterCommit();
 
         }else{
@@ -74,9 +70,6 @@ public class Interview {
         InterviewApplication.applicationContext
             .getBean(recruitmentmanagement.external.ReservationService.class)
             .createReservation(reservation);
-
-        this.setInterviewScore(saveInterviewresultCommand.getInterviewScore());
-        this.setPassed(saveInterviewresultCommand.getPassed());
     }
 
     //>>> Clean Arch / Port Method

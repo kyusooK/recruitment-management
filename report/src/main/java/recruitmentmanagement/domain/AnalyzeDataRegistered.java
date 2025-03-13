@@ -14,7 +14,7 @@ public class AnalyzeDataRegistered extends AbstractEvent {
     private Long id;
     private String applicantName;
     private Integer summationScore;
-    private String interviewScore;
+    private Integer interviewScore;
     private String position;
 
     public AnalyzeDataRegistered(ApplicationAnalyzeData aggregate) {

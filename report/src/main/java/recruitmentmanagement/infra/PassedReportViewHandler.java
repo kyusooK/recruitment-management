@@ -29,8 +29,8 @@ public class PassedReportViewHandler {
             // view 객체에 이벤트의 Value 를 set 함
             passedReport.setName(analyzeDataRegistered.getApplicantName());
             passedReport.setSummationScore(analyzeDataRegistered.getSummationScore());
-            passedReport.setInterviewScore(Integer.parseInt(analyzeDataRegistered.getInterviewScore()));
-            passedReport.setPosition(Integer.parseInt(analyzeDataRegistered.getPosition()));
+            passedReport.setInterviewScore(analyzeDataRegistered.getInterviewScore());
+            passedReport.setPosition(analyzeDataRegistered.getPosition());
             // view 레파지 토리에 save
             passedReportRepository.save(passedReport);
 
