@@ -1,5 +1,8 @@
 <template>
     <v-app id="inspire">
+        <reservation-notification-app>
+            <reservation-notification/>
+        </reservation-notification-app>
         <div>
             <v-app-bar color="primary" app clipped-left flat>
                 <v-toolbar-title>

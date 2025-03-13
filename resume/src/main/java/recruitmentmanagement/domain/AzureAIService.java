@@ -79,6 +79,11 @@ public class AzureAIService {
                 String.class
             );
             
+            // Check if response body is null
+            if (response.getBody() == null) {
+                throw new RuntimeException("Response body is null");
+            }
+            
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.getBody());
             String content = root.path("choices").get(0).path("message").path("content").asText();

@@ -64,6 +64,9 @@ public class Interview {
         if(saveInterviewresultCommand.getPassed().equals(true)){
             reservation.setDescription("면접 통과를 축하드립니다!" + " 면접 점수: " + saveInterviewresultCommand.getInterviewScore());
 
+            InterviewResultSaved interviewResultSaved = new InterviewResultSaved(this);
+            interviewResultSaved.publishAfterCommit();
+
         }else{
             reservation.setDescription("저희 회사에 지원해주셔서 감사합니다. 안타깝게도 귀하의 면접 결과, 불합격되었음을 알려드립니다 ");
         }
@@ -74,9 +77,6 @@ public class Interview {
 
         this.setInterviewScore(saveInterviewresultCommand.getInterviewScore());
         this.setPassed(saveInterviewresultCommand.getPassed());
-
-        InterviewResultSaved interviewResultSaved = new InterviewResultSaved(this);
-        interviewResultSaved.publishAfterCommit();
     }
 
     //>>> Clean Arch / Port Method

@@ -21,8 +21,6 @@
             <String label="경력" v-model="value.career" :editMode="editMode" :inputUI="''"/>
             <String label="자격증" v-model="value.qualifications" :editMode="editMode" :inputUI="''"/>
             <String label="지원동기" v-model="value.motivation" :editMode="editMode" :inputUI="''"/>
-            <String label="요약본" v-model="value.summation" :editMode="editMode" :inputUI="''"/>
-            <Number label="요약점수" v-model="value.summationScore" :editMode="editMode" :inputUI="''"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">
@@ -69,7 +67,7 @@
                 text
                 @click="summerizeAibasedresume"
             >
-                SummerizeAibasedresume
+                이력서 요약
             </v-btn>
         </v-card-actions>
 

@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target wc --name reservation-notification-app ./src/web-component.js",
-    "start": "serve -l 8080 dist",
+    "start": "serve -l 8070 dist",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

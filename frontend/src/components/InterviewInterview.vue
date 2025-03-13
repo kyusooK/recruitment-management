@@ -67,7 +67,7 @@
                 text
                 @click="openSaveInterviewresult"
             >
-                SaveInterviewresult
+                면접 결과 저장
             </v-btn>
             <v-dialog v-model="saveInterviewresultDiagram" width="500">
                 <SaveInterviewresultCommand
