@@ -33,13 +33,15 @@ public class AzureAIService {
             return score;
         }
     }
-
+    // 생성한 Azure API KEY의 endpoint
     @Value("${azure.openai.endpoint}")
     private String azureEndpoint;
-    
+
+    // 생성한 Azure API KEY내부에 설정된 Key
     @Value("${azure.openai.key}")
     private String azureKey;
 
+    // AI Foundry portal를 통해 생성한 배포 모델 이름
     @Value("${azure.openai.deployment}")
     private String deploymentName;
 
